@@ -7,6 +7,12 @@ app.use(express.json());
 
 let lastId = 0;
 const dogs = {};
+addDog('Whippet', 'Dasher');
+
+function addDog(breed, name) {
+  const dog = {id: ++lastId, breed, name};
+  dogs[dog.id] = dog;
+}
 
 function mustExist(res, id) {
   const dog = dogs[id];
@@ -17,10 +23,8 @@ function mustExist(res, id) {
 const sendJson = (res, obj) => res.send(JSON.stringify(obj));
 
 app.post('/', (req, res) => {
-  const { breed, name } = req.body;
-  const dog = { id: ++lastId, breed, name };
-  dogs[dog.id] = dog;
-  console.log('server.js post: dogs =', dogs);
+  const {breed, name} = req.body;
+  addDog(breed, name);
   sendJson(res, dog);
 });
 
@@ -30,16 +34,16 @@ app.get('/', (req, res) => {
 });
 
 app.get('/:id', (req, res) => {
-  const { id } = req.params;
+  const {id} = req.params;
   const dog = mustExist(res, id);
   if (dog) sendJson(res, dog);
 });
 
 app.put('/:id', (req, res) => {
-  const { id } = req.params;
-  const { breed, name } = req.body;
+  const {id} = req.params;
+  const {breed, name} = req.body;
   if (mustExist(res, id)) {
-    const dog = { breed, id, name };
+    const dog = {breed, id, name};
     dogs[id] = dog;
     console.log('server.js put: dogs =', dogs);
     sendJson(res, dog);
@@ -47,7 +51,7 @@ app.put('/:id', (req, res) => {
 });
 
 app.delete('/:id', (req, res) => {
-  const { id } = req.params;
+  const {id} = req.params;
   if (mustExist(res, id)) {
     delete dogs[id];
     console.log('server.js delete: dogs =', dogs);
