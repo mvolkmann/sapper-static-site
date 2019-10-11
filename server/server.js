@@ -1,3 +1,6 @@
+// This is used when the following line
+// is in src/routes/dogs/index.svelte.
+// const res = await this.fetch('http://localhost:1919');
 const cors = require('cors');
 const express = require('express');
 
@@ -8,6 +11,9 @@ app.use(express.json());
 let lastId = 0;
 const dogs = {};
 addDog('Whippet', 'Dasher');
+addDog('Treeing Walker Coonhound', 'Maisey');
+addDog('Native American Indian Dog', 'Ramsey');
+addDog('German Shorthaired Pointer', 'Oscar Wilde');
 
 function addDog(breed, name) {
   const dog = {id: ++lastId, breed, name};

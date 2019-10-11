@@ -1,3 +1,7 @@
+// This is only used when the following line
+// is in src/routes/dogs/index.svelte.
+// const res = await this.fetch('dogs.json');
+
 let lastId = 0;
 const dogs = {};
 
